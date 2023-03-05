@@ -1,0 +1,12 @@
+
+<% if user_signed_in? %> 
+ <div> Welcome <%= current_user.email %> </div> 
+  <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
+<% else %>
+<%debugger%>
+  <%= button_to "Sign in", new_user_session_path %> 
+<% end %>
+
+
+<h1>Expenses#index</h1>
+<p>Find me in app/views/expenses/index.html.erb</p>

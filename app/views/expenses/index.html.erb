@@ -1,0 +1,48 @@
+
+<%=render "form"%>
+
+
+
+<br><br><br>
+<table border="1">
+  <tr>
+    <th>Title</th>
+    <th>Price</th>
+    <th>Type</th>
+    <th>show</th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+ <%@expenses.each do |e|%>
+<tr>
+    <td><%=e.title%></td>
+    <td><%=e.price%></td>
+    <td><%=e.type_of_expenses%></td>
+    <td><%=link_to "show", "/expenses/#{e.id}"%></td>
+    <td><%=link_to "Edit", "/expenses/#{e.id}/edit"%></td>
+    <td><%= link_to "Destroy", "/expenses/#{e.id}" , data: {
+                    turbo_method: :delete
+                    
+                  } %></td>
+    
+  </tr>
+
+<%end%>
+</table>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<% if user_signed_in? %> 
+ <div> Welcome <%= current_user.email %> </div> 
+  <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
+<% end %>
+
+
+
+
+
+<h1>Expenses#index</h1>
+<p>Find me in app/views/expenses/index.html.erb</p>
