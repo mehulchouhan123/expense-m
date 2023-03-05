@@ -1,20 +1,33 @@
 
 <%=render "form"%>
+<h3>
+You can find your expenses
+  <small class="text-muted"> by specific categorey</small>
+</h3>
+<div>
+<%= form_with url: "/search", method: :get do |form| %>
+  <%= form.label :query, "Search for:" %>
+  <%= form.text_field :query %>
+  <%= form.submit "Search" %>
 
 
 
-<br><br><br>
-<table border="1">
+<%end%>
+</div>
+<table class="table" class="table-primary">
+  <thead>
+    <tr >
+      <th scope="col">Title</th>
+      <th scope="col">Price</th>
+      <th scope="col">Type</th>
+      <th scope="col">show</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+     <%@expenses.each do |e|%>
   <tr>
-    <th>Title</th>
-    <th>Price</th>
-    <th>Type</th>
-    <th>show</th>
-    <th>Edit</th>
-    <th>Delete</th>
-  </tr>
- <%@expenses.each do |e|%>
-<tr>
     <td><%=e.title%></td>
     <td><%=e.price%></td>
     <td><%=e.type_of_expenses%></td>
@@ -26,23 +39,13 @@
                   } %></td>
     
   </tr>
-
-<%end%>
+  </tbody>
+  <%end%>
 </table>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<% if user_signed_in? %> 
- <div> Welcome <%= current_user.email %> </div> 
-  <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
-<% end %>
 
 
 
 
 
-<h1>Expenses#index</h1>
-<p>Find me in app/views/expenses/index.html.erb</p>
+
+

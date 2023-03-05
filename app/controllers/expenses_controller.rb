@@ -1,13 +1,19 @@
 class ExpensesController < ApplicationController
   def index
+    # byebug
     @expense=Expense.new
     if !user_signed_in?
       redirect_to new_user_session_path
     end
     # byebug
     if @current_user!=nil
+
       @expenses=User.find(current_user.id).expenses
     end
+  end
+  def search
+    byebug
+    debugger
   end
   def create
       # byebug
