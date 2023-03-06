@@ -1,0 +1,207 @@
+warning: in the working copy of 'app/controllers/expenses_controller.rb', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/views/expenses/index.html.erb', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/views/layouts/application.html.erb', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/.byebug_history b/.byebug_history[m
+[1mindex 25d91c9..9ddc4f2 100644[m
+[1m--- a/.byebug_history[m
+[1m+++ b/.byebug_history[m
+[36m@@ -1,4 +1,69 @@[m
+ c[m
+[32m+[m[32mparams[:date][m
+[32m+[m[32mparams[m
+[32m+[m[32mc[m
+[32m+[m[32mparams[m
+[32m+[m[32mc[m
+[32m+[m[32mparams[m
+[32m+[m[32mc[m
+[32m+[m[32mparams[m
+[32m+[m[32mc[m
+[32m+[m[32mparams[:date][m
+[32m+[m[32mparams[m
+[32m+[m[32mc[m
+[32m+[m[32mparams[m
+[32m+[m[32mc[m
+[32m+[m[32mparams[m
+[32m+[m[32mc[m
+[32m+[m[32mparams[m
+[32m+[m[32mc[m
+[32m+[m[32mparams[m
+[32m+[m[32mc[m
+[32m+[m[32mparams[:array][0][m
+[32m+[m[32mparams[m
+[32m+[m[32mc[m
+[32m+[m[32mparams[:passed_parameter].size[m
+[32m+[m[32mparams[m
+[32m+[m[32mc[m
+[32m+[m[32mparams[:passed_parameter][m
+[32m+[m[32mc[m
+[32m+[m[32mparams[:passsed_parameter][m
+[32m+[m[32mparams[m
+[32m+[m[32mc[m
+[32m+[m[32m@expenses=Expense.where("type_of_expenses=?",a[0])[m
+[32m+[m[32mc[m
+[32m+[m[32ma[0][m
+[32m+[m[32mc[m
+[32m+[m[32mparams[:Clothes][m
+[32m+[m[32mc[m
+[32m+[m[32mparams[:k][m
+[32m+[m[32ma=@hash.first[0][m
+[32m+[m[32mparams[:@hash.first[0]][m
+[32m+[m[32ma=@hash.first[0][m
+[32m+[m[32mparams[:@hash.first[0]][m
+[32m+[m[32m@hash.first[0][m
+[32m+[m[32m@hash.first[m
+[32m+[m[32m@hash.each do |k,v|  end[m
+[32m+[m[32mk[m
+[32m+[m[32mc[m
+[32m+[m[32m@hash.each do |k,v| end[m
+[32m+[m[32mk=Education[m
+[32m+[m[32mparams[:Education][m
+[32m+[m[32mv=params[:k][m
+[32m+[m[32mk="Educationo"[m
+[32m+[m[32mv="Education"[m
+[32m+[m[32mv=params[:k][m
+[32m+[m[32mc[m
+[32m+[m[32mccc[m
+[32m+[m[32mc[m
+[32m+[m[32mi[m
+[32m+[m[32mparams[m
+[32m+[m[32mc[m
+[32m+[m[32mparams[:Food][m
+[32m+[m[32mparams[m
+[32m+[m[32mc[m
+[32m+[m[32mparams[m
+[32m+[m[32mc[m
+ params[m
+ c[m
+ params[m
+[1mdiff --git a/app/controllers/expenses_controller.rb b/app/controllers/expenses_controller.rb[m
+[1mindex 389dd5d..fd8cb5c 100644[m
+[1m--- a/app/controllers/expenses_controller.rb[m
+[1m+++ b/app/controllers/expenses_controller.rb[m
+[36m@@ -1,28 +1,60 @@[m
+ class ExpensesController < ApplicationController[m
+   def index[m
+[31m-    # byebug[m
+     @expense=Expense.new[m
+     if !user_signed_in?[m
+       redirect_to new_user_session_path[m
+     end[m
+     # byebug[m
+     if @current_user!=nil[m
+[31m-[m
+       @expenses=User.find(current_user.id).expenses[m
+[32m+[m[32m      if params[:array]!=nil[m
+[32m+[m[32m        if params[:array].size==1[m
+[32m+[m[32m          @expenses=Expense.where("type_of_expenses=? AND date>=",params[:array][0],params[:date])[m
+[32m+[m[32m        elsif  params[:array].size==2[m
+[32m+[m[32m          @expenses=Expense.where("(type_of_expenses=? OR type_of_expenses=?)AND date>=?",params[:array][0], params[:array][1].params[:date])[m
+[32m+[m[32m        elsif params[:array].size==3[m
+[32m+[m[32m         @expenses=Expense.where("(type_of_expenses=? OR type_of_expenses=? OR  type_of_expenses=?) AND date=? ",params[:array][0],params[:array][1],params[:array][2],params[:date])[m
+[32m+[m[32m        end[m
+[32m+[m[32m      end[m
+[32m+[m
+     end[m
+[32m+[m[41m  [m
+   end[m
+[31m-  def search[m
+[31m-    byebug[m
+[31m-    debugger[m
+[31m-  end[m
+[32m+[m
+   def create[m
+[31m-      # byebug[m
+[31m-    cid=current_user.id[m
+[31m-    expense=Expense.new(param_expense)[m
+[31m-    expense.user_id=cid[m
+[31m-    expense.save![m
+[31m-    redirect_to root_path[m
+[32m+[m[32m    # byebug[m
+[32m+[m[32m    @date=Date.today[m
+[32m+[m[32m    if params[:date]=="Last week"[m
+[32m+[m[32m      @date=Date.today.last_week[m
+[32m+[m[32m    elsif params[:date]=="Last month"[m
+[32m+[m[32m      @date=Date.today.last_month[m
+[32m+[m[32m    elsif params[:date]=="Last year"[m
+[32m+[m[32m      @date=Date.today.last_year[m
+[32m+[m[32m    end[m
+ [m
+[32m+[m[32m    if params[:commit]=='Save'[m
+[32m+[m[32m      cid=current_user.id[m
+[32m+[m[32m      expense=Expense.new(param_expense)[m
+[32m+[m[32m      expense.user_id=cid[m
+[32m+[m[32m      expense.save![m
+[32m+[m[32m      redirect_to root_path[m
+[32m+[m[32m    else[m
+[32m+[m[32m      @hash={"Education"=>0,"Clothes"=>"0","Food"=>"0"}[m
+[32m+[m[32m      a=Array.new[m
+[32m+[m[32m      @hash.each do |k,v|[m
+[32m+[m[32m        v=params[k][m
+[32m+[m[32m        if v=="1"[m
+[32m+[m[32m          a.push(k)[m
+[32m+[m[32m        end[m
+[32m+[m[32m      end[m
+[32m+[m[32m      @expenses=1[m
+[32m+[m[32m      if a.size==1[m
+[32m+[m[32m        @expenses=Expense.where("type_of_expenses=?",a[0])[m
+[32m+[m[32m        puts @expenses[m
+[32m+[m[32m      end[m
+[32m+[m[32m      redirect_to root_path(array: a,date: @date)[m
+[32m+[m[41m [m
+[32m+[m[32m    end[m
+   end[m
+   def edit[m
+     @expense=Expense.find(params[:id])[m
+[1mdiff --git a/app/views/expenses/_form.html.erb b/app/views/expenses/_form.html.erb[m
+[1mindex 0f918da..f24d00a 100644[m
+[1m--- a/app/views/expenses/_form.html.erb[m
+[1m+++ b/app/views/expenses/_form.html.erb[m
+[36m@@ -18,7 +18,7 @@[m
+     </div>[m
+     <div>[m
+   <%=f.label "Type:"%>[m
+[31m-<%= f.select :type_of_expenses, ["Education", "clothes", "food","Home rent","vehical"], autofocus: true%>[m
+[32m+[m[32m<%= f.select :type_of_expenses, ["Education", "Clothes", "Food"], autofocus: true%>[m
+   </div>[m
+ [m
+  [m
+[1mdiff --git a/app/views/expenses/index.html.erb b/app/views/expenses/index.html.erb[m
+[1mindex a136431..bc85abb 100644[m
+[1m--- a/app/views/expenses/index.html.erb[m
+[1m+++ b/app/views/expenses/index.html.erb[m
+[36m@@ -5,9 +5,15 @@[m [mYou can find your expenses[m
+   <small class="text-muted"> by specific categorey</small>[m
+ </h3>[m
+ <div>[m
+[31m-<%= form_with url: "/search", method: :get do |form| %>[m
+[31m-  <%= form.label :query, "Search for:" %>[m
+[31m-  <%= form.text_field :query %>[m
+[32m+[m[32m<%= form_with url:"/expenses" do |form| %>[m
+[32m+[m[32m  <%= form.check_box :Education %>[m
+[32m+[m[32m  <%= form.label :"Education" %>[m
+[32m+[m[32m  <%= form.check_box :Clothes %>[m
+[32m+[m[32m  <%= form.label :"Clothes" %>[m
+[32m+[m[32m  <%= form.check_box :Food %>[m
+[32m+[m[32m  <%= form.label :"Food" %>[m
+[32m+[m[32m  <%=form.label "Type:"%>[m
+[32m+[m[32m<%= form.select :date, ["Today", "Last week", "Last month",'Last year'], autofocus: true%>[m
+   <%= form.submit "Search" %>[m
+ [m
+ [m
+[1mdiff --git a/app/views/layouts/application.html.erb b/app/views/layouts/application.html.erb[m
+[1mindex 5505689..08c5b7f 100644[m
+[1m--- a/app/views/layouts/application.html.erb[m
+[1m+++ b/app/views/layouts/application.html.erb[m
+[36m@@ -47,10 +47,12 @@[m
+     </div>[m
+   </div>[m
+ </nav>[m
+[32m+[m[32m<%if user_signed_in? %>[m
+ <div class="alert alert-success alert-dismissible fade show" role="alert">[m
+                             <strong>Welcome to Expenses Managment</strong> You can manage  your Expenses here:[m
+                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>[m
+                           </div>[m
+[32m+[m[32m<%end%>[m
+     <p class="notice"><%= notice %></p>[m
+   <p class="alert"><%= alert %></p>[m
+     <%= yield %>[m
